@@ -22,7 +22,7 @@
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
     "npm": "^6.9.0",
-    "npmi": "2.0.1",
+    "npmi": "^4.0.0",
     "resume-schema": "latest",
     "superagent": "^3.5.2",
     "tarball-extract": "^0.0.6"
