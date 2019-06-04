@@ -21,7 +21,7 @@
     "express-minify": "^1.0.0",
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
-    "npm": "^4.5.0",
+    "npm": "^6.9.0",
     "npmi": "2.0.1",
     "resume-schema": "latest",
     "superagent": "^3.5.2",
