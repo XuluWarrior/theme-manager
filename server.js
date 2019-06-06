@@ -5,6 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var app = express();
+const themeRouter = express.Router();
 var minify = require('express-minify');
 var compress = require('compression');
 var port = process.env.PORT || 3000;
@@ -25,12 +26,14 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json())
 app.use(cors());
 
-app.use("/themes.json", express.static('themes.json'));
-app.get('/:theme', theme);
-app.post('/:theme', theme);
+themeRouter.use("/themes.json", express.static('themes.json'));
+themeRouter.get('/:theme', theme);
+themeRouter.post('/:theme', theme);
 
-app.get('/theme/:theme', theme);
-app.post('/theme/:theme', theme);
+themeRouter.get('/theme/:theme', theme);
+themeRouter.post('/theme/:theme', theme);
+
+app.use(process.env.INSTANCE_BASE_PATH || "/", themeRouter);
 
 console.log("Starting theme-manager..");
 
