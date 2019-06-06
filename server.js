@@ -9,6 +9,8 @@ var minify = require('express-minify');
 var compress = require('compression');
 var port = process.env.PORT || 3000;
 
+const serverless = require('serverless-http');
+
 app.disable('x-powered-by');
 app.use(compress());
 app.use(minify(
@@ -32,6 +34,10 @@ app.post('/theme/:theme', theme);
 
 console.log("Starting theme-manager..");
 
-app.listen(port, function() {
-  console.log('Server is now running at http://localhost:' + port + '/');
-});
+if (!process.env.IS_SERVERLESS) {
+  app.listen(port, function () {
+    console.log('Server is now running at http://localhost:' + port + '/');
+  });
+}
+
+module.exports.handler = serverless(app);

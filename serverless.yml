@@ -1,0 +1,66 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: theme-manager
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: eu-west-2 # London
+
+#  iamRoleStatements:
+#    - Effect: Allow
+#      Action:
+#       - ses:SendEmail
+#       - ses:SendRawEmail
+#      Resource: "*"
+
+  timeout: 15
+
+  environment:
+    IS_SERVERLESS: true
+    npm_config_cache: "/tmp/npm"
+
+## IF using custom domain
+#    INSTANCE_URL: "${self:custom.customDomain.domainName}"
+#    INSTANCE_BASE_PATH: "/${self:custom.customDomain.basePath}"
+## END custom domain
+## OTHERWISE
+    INSTANCE_URL: { "Fn::Join" : ["", [{ "Ref" : "ApiGatewayRestApi" }, ".execute-api.${opt:region, self:provider.region}.amazonaws.com" ] ]  }
+    INSTANCE_BASE_PATH: ""
+## END
+
+functions:
+  app:
+      handler: server.handler
+      events:
+        - http: ANY /
+        - http: 'ANY {proxy+}'
+
+plugins:
+  - serverless-offline
+#  - serverless-domain-manager
+
+#custom:
+#  customDomain:
+#    domainName: 'my.customdomain.me' # Change this to your domain.
+#    basePath: '${self:service}' # This will be prefixed to all routes
+#    stage: ${self:provider.stage}
+#    createRoute53Record: true

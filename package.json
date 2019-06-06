@@ -23,7 +23,12 @@
     "mkdirp": "^0.5.1",
     "npmi": "^4.0.0",
     "resume-schema": "latest",
+    "serverless-http": "^2.0.2",
     "superagent": "^5.0.5",
     "tarball-extract": "^0.0.6"
+  },
+  "devDependencies": {
+    "serverless-domain-manager": "^3.2.2",
+    "serverless-offline": "^5.0.1"
   }
 }
